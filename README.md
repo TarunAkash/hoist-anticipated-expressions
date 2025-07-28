@@ -142,42 +142,6 @@ hoist-anticipated-expressions/
 └── README.md
 ```
 
----
-
-## Submission Instructions
-
-1. Format your patch:
-
-   ```bash
-   git clang-format HEAD~
-   ```
-
-2. Check for whitespace issues:
-
-   ```bash
-   git diff --check HEAD~
-   ```
-
-3. Generate a patch:
-
-   ```bash
-   git format-patch HEAD~
-   ```
-
-4. Email the patch and your `README.txt` file to:
-
-   ```
-   udayb@iisc.ac.in
-   ```
-
-   With subject:
-
-   ```
-   E0255 Asst-1 submission
-   ```
-
----
-
 ## Author
 
 Tarun Akash\
