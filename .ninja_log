@@ -1,0 +1,5 @@
+# ninja log v5
+4460	8731	1753662163162045900	LLVMHoistAnticipatedExpressions.so	195c593b1a0d6ec1
+0	4460	1753662158916045800	CMakeFiles/HoistAnticipatedExpressions.dir/lib/HoistAnticipatedExpressions.cpp.o	1ba8555f28fcbede
+0	48	1753662428893054000	build.ninja	ac13677c43de56ed
+0	13	0	clean	a31eedcededa8236

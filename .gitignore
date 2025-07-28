@@ -1,0 +1,5 @@
+build/
+*.ll
+*.swp
+*.so
+*.o
