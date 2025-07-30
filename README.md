@@ -75,7 +75,7 @@ export LLVM_DIR=$(pwd)/llvm-build/lib/cmake/llvm
 Clone this repository and build using `ninja`:
 
 ```bash
-git clone git@github.com:TarunAkash/hoist-anticipated-expressions.git
+git clone https://github.com/TarunAkash/hoist-anticipated-expressions.git
 cd hoist-anticipated-expressions
 
 cmake -S . -B build -G Ninja -DLLVM_DIR=$LLVM_DIR
@@ -144,6 +144,6 @@ hoist-anticipated-expressions/
 
 ## Author
 
-Tarun Akash\
+Tarun Akash Kombol Baha\
 GitHub: [https://github.com/TarunAkash](https://github.com/TarunAkash)
 
