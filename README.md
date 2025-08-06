@@ -64,8 +64,6 @@ exit:
 
 The duplicated `mul` and `add` instructions in `then`/`else` are replaced by a single computation in `entry`.
 
-Here’s the **Our Approach** part in simple Indian English, detailed version:
-
 ```markdown
 ## Our Approach
 
@@ -84,13 +82,12 @@ we remove repeated work and save execution time.
   2. Its input values are not changed before it is computed.  
 
 #### **Step 2: Use, Def, In, and Out Sets**  
-- **UseSet** → Instructions used in a block before being redefined there.  
-- **DefSet** → Instructions defined (given a new value) in the block.  
-- **InSet** → Expressions anticipated at the start of the block.  
-- **OutSet** → Expressions anticipated at the end of the block.  
+- **UseSet** : Instructions used in a block before being redefined there.  
+- **DefSet** : Instructions defined (given a new value) in the block.  
+- **InSet** : Expressions anticipated at the start of the block.  
+- **OutSet** : Expressions anticipated at the end of the block.  
 
 #### **Step 3: Transfer Function**  
-We calculate:
 ```
 
 In\[B] = Use\[B] ∪ (Out\[B] − Def\[B])
@@ -99,13 +96,13 @@ In\[B] = Use\[B] ∪ (Out\[B] − Def\[B])
 This tells which expressions are anticipated at the start of a block.  
 
 #### **Step 4: Confluence Function**  
-For blocks with multiple successors:
+For blocks with multiple successors:  
 ```
 
 Out\[B] = Intersection of In\[Successors of B]
 
 ```
-We take the intersection because the expression must be needed on **all** paths.
+We take the intersection because the expression must be needed on **all** paths.  
 
 #### **Step 5: Hoisting (Moving Up)**  
 - After finding anticipated expressions,  
