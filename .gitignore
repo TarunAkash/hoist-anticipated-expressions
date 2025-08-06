@@ -1,0 +1,6 @@
+build/
+*.swp
+*.so
+*.o
+.ninja_deps
+.ninja_log
