@@ -2,8 +2,8 @@
 
 ## Overview
 
-This project implements an **LLVM function pass** that **hoists anticipated expressions** —  
-computations that are guaranteed to be needed on all control‑flow paths — to the earliest  
+This project implements an **LLVM function pass** that **hoists anticipated expressions**
+computations that are guaranteed to be needed on all control‑flow paths to the earliest  
 common point in the control flow graph.  
 
 By hoisting such expressions:
