@@ -64,6 +64,27 @@ exit:
 
 The duplicated `mul` and `add` instructions in `then`/`else` are replaced by a single computation in `entry`.
 
+## Our Approach
+
+1. **Finding Anticipated Expressions**  
+   - We check the program from the end towards the start (backward analysis) to see which expressions will definitely be needed later on every path.  
+   - An expression is “anticipated” if it will be used in the future without its values changing in between.
+
+2. **How We Calculate**  
+   - **Transfer Function**: Looks at each basic block and updates which expressions are kept or removed.  
+   - **Confluence Operator**: We take the common expressions from all paths (intersection) because they must be needed in all cases.
+
+3. **Hoisting (Moving Up)**  
+   - After finding the anticipated expressions, we move them to the earliest safe place in the program where they can be computed without changing the meaning of the program.  
+   - This removes repeated calculations in later parts of the code.
+
+4. **Keeping Program Correct**  
+   - We make sure moving the expressions does not change how the program works.
+
+5. **Testing**  
+   - We test with `.ll` files to confirm our pass is correct and actually reduces repeated work.
+
+
 ## Requirements
 
 * LLVM **22.0.0** or newer
