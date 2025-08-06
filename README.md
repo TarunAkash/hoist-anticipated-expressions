@@ -64,25 +64,63 @@ exit:
 
 The duplicated `mul` and `add` instructions in `then`/`else` are replaced by a single computation in `entry`.
 
+Here’s the **Our Approach** part in simple Indian English, detailed version:
+
+```markdown
 ## Our Approach
 
-1. **Finding Anticipated Expressions**  
-   - We check the program from the end towards the start (backward analysis) to see which expressions will definitely be needed later on every path.  
-   - An expression is “anticipated” if it will be used in the future without its values changing in between.
+### 1. Understanding the Problem  
+Many times in a program, the same calculation is repeated in different branches or inside loops.  
+If we can safely do this calculation earlier (only once) and reuse the result,  
+we remove repeated work and save execution time.  
 
-2. **How We Calculate**  
-   - **Transfer Function**: Looks at each basic block and updates which expressions are kept or removed.  
-   - **Confluence Operator**: We take the common expressions from all paths (intersection) because they must be needed in all cases.
+### 2. Step-by-Step Method  
 
-3. **Hoisting (Moving Up)**  
-   - After finding the anticipated expressions, we move them to the earliest safe place in the program where they can be computed without changing the meaning of the program.  
-   - This removes repeated calculations in later parts of the code.
+#### **Step 1: Backward Dataflow Analysis**  
+- We go from the end of the program towards the start.  
+- At each point, we check if an expression will definitely be needed later on **all** possible paths.  
+- An expression is **anticipated** if:  
+  1. It will be computed in the future on every path.  
+  2. Its input values are not changed before it is computed.  
 
-4. **Keeping Program Correct**  
-   - We make sure moving the expressions does not change how the program works.
+#### **Step 2: Use, Def, In, and Out Sets**  
+- **UseSet** → Instructions used in a block before being redefined there.  
+- **DefSet** → Instructions defined (given a new value) in the block.  
+- **InSet** → Expressions anticipated at the start of the block.  
+- **OutSet** → Expressions anticipated at the end of the block.  
 
-5. **Testing**  
-   - We test with `.ll` files to confirm our pass is correct and actually reduces repeated work.
+#### **Step 3: Transfer Function**  
+We calculate:
+```
+
+In\[B] = Use\[B] ∪ (Out\[B] − Def\[B])
+
+```
+This tells which expressions are anticipated at the start of a block.  
+
+#### **Step 4: Confluence Function**  
+For blocks with multiple successors:
+```
+
+Out\[B] = Intersection of In\[Successors of B]
+
+```
+We take the intersection because the expression must be needed on **all** paths.
+
+#### **Step 5: Hoisting (Moving Up)**  
+- After finding anticipated expressions,  
+  we move them to the earliest safe place (dominator block).  
+- We check that moving does not change program behaviour and that the operands are still valid there.  
+
+#### **Step 6: Removing Duplicates**  
+- After hoisting, we remove the same calculations from later blocks.  
+- We update all uses to refer to the single hoisted instruction.  
+
+#### **Step 7: Testing**  
+- We prepare `.ll` test cases and run the pass.  
+- We verify the output using **FileCheck** to confirm correctness and optimisation.
+```
+
 
 
 ## Requirements
@@ -151,8 +189,4 @@ If no output appears, all checks have passed.
 
 * **Hoisting**  
   Anticipated expressions in `OutSet` are moved before the block terminator and duplicates in successors are removed, with uses redirected.
-
-## License
-
-This project is released under the MIT License.
 
