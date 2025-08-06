@@ -90,7 +90,7 @@ we remove repeated work and save execution time.
 #### **Step 3: Transfer Function**  
 ```
 
-In\[B] = Use\[B] ∪ (Out\[B] − Def\[B])
+In[B] = Use[B] ∪ (Out[B] − Def[B])
 
 ```
 This tells which expressions are anticipated at the start of a block.  
@@ -99,7 +99,7 @@ This tells which expressions are anticipated at the start of a block.
 For blocks with multiple successors:  
 ```
 
-Out\[B] = Intersection of In\[Successors of B]
+Out[B] = Intersection of In[Successors of B]
 
 ```
 We take the intersection because the expression must be needed on **all** paths.  
