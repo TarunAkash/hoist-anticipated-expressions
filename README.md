@@ -64,7 +64,7 @@ exit:
 
 The duplicated `mul` and `add` instructions in `then`/`else` are replaced by a single computation in `entry`.
 
-```markdown
+
 ## Our Approach
 
 ### 1. Understanding the Problem  
@@ -116,7 +116,7 @@ We take the intersection because the expression must be needed on **all** paths.
 #### **Step 7: Testing**  
 - We prepare `.ll` test cases and run the pass.  
 - We verify the output using **FileCheck** to confirm correctness and optimisation.
-```
+
 
 
 
